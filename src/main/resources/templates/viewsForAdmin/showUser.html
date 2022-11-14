@@ -10,9 +10,9 @@
 <p th:text="'FirstName: ' + ${user.getFirstName()}">VALUE</p>
 <p th:text="'LastName: ' + ${user.getLastName()}">VALUE</p>
 <p th:text="'Age: ' + ${user.getAge()}">VALUE</p>
-<p th:text="'Roles: ' + ${user.getRole()}">VALUE</p>
+<p th:text="'Roles: ' + ${user.getRoles()}">VALUE</p>
 
-<form th:method="GET" th:action="@{/admin/users/edit(id=${user.getId()})}">
+<form th:method="GET" th:action="@{/admin/users/{id}/edit(id=${user.getId()})}">
     <input type="submit" value="Edit user!"/>
 </form>
 

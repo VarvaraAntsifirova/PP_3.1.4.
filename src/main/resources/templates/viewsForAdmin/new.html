@@ -5,7 +5,7 @@
     <title>New User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin/users}" th:object="${user}"><!--th:action="@{/admin/users}"/a}"-->
+<form th:method="POST" th:action="@{/admin/users/newUser}" th:object="${user}"><!--th:action="@{/admin/users}"/a}"-->
 
     <label for="username">Username</label>
     <input name="username" type="text" id="username"/>
@@ -13,7 +13,7 @@
     <br/>
 
     <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
+    <input type="password" name="password" id="password"/>
 
     <br/>
 
@@ -32,8 +32,13 @@
 
     <br/>
 
-    <label for="role">Role</label>
-    <input name="role" type="text" id="role"/>
+    <input type=checkbox id=adminId name=roles[] value="ROLE_ADMIN">
+    <label for="adminId">Admin</label>
+
+    <br/>
+
+    <input type=checkbox id=userId name=roles[] value="ROLE_USER">
+    <label for="userId">User</label>
 
     <br/>
 

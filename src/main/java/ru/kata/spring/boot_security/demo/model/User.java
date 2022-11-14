@@ -1,16 +1,21 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "username")
     private String username;
@@ -27,11 +32,13 @@ public class User {
     @Column(name = "age")
     private int age;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
-            joinColumns =  @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> role;
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+    )
+    private Set<Role> roles;
+
 
     public User() {
     }
@@ -40,6 +47,16 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    public User(Integer id, String username, String password, String firstName, String lastName, int age, Set<Role> role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.roles = role;
     }
 
     public String getFirstName() {
@@ -66,16 +83,36 @@ public class User {
         this.age = age;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
@@ -86,16 +123,36 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    public Set<Role> getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Set<Role> role) {
-        this.role = role;
+    public void setRole(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setRoles(String[] roles) {
+        Set<Role> roleSet = new HashSet<>();
+        for (String role : roles) {
+            if (role != null) {
+                if (role.equals("ROLE_ADMIN")) {
+                    roleSet.add(new Role(1, role));
+                }
+                if (role.equals("ROLE_USER")) {
+                    roleSet.add(new Role(2, role));
+                }
+            }
+        }
+        this.roles = roleSet;
     }
 
     @Override
