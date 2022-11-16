@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>User Page</title>
+    <meta charset="UTF-8">
+    <title>Users</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -12,12 +13,13 @@
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 </head>
 <body>
+
 <!--Верх страницы с возможностью выхода-->
 <nav class="navbar navbar-default">
     <div class="container-fluid" style="background-color: #4a4a4a">
 
         <div class="navbar-header text-white">
-            <h4 th:text="${user.getEmail()} + ' with roles: ' + ${user.getRoles()}"></h4>
+            <h4 th:text="${admin.getEmail()} + ' with roles: ' + ${admin.getRoles()}"></h4>
         </div>
 
         <div>
@@ -36,6 +38,9 @@
             <!--Боковая панель-->
             <div class="container-fluid">
                 <ul class="nav flex-column">
+                    <li>
+                        <a class="nav-link" aria-current="fluid" href="/admin">Admin</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link active bg-primary text-white" href="/admin/users">User</a>
                     </li>
@@ -66,14 +71,14 @@
                             <th>Age</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <tr>
-                                <td th:text="${user.getId()}">user</td>
-                                <td th:text="${user.getFirstName()}">user</td>
-                                <td th:text="${user.getLastName()}">user</td>
-                                <td th:text="${user.getAge()}">user</td>
-                                <td th:text="${user.getEmail()}">user</td>
-                                <td th:text="${user.getRoles()}">user</td>
-                            </tr>
+                                <tr>
+                                    <td th:text="${admin.getId()}">user</td>
+                                    <td th:text="${admin.getFirstName()}">user</td>
+                                    <td th:text="${admin.getLastName()}">user</td>
+                                    <td th:text="${admin.getAge()}">user</td>
+                                    <td th:text="${admin.getEmail()}">user</td>
+                                    <td th:text="${admin.getRoles()}">user</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -84,19 +89,11 @@
 </div>
 <br/>
 
-<h1>User, welcome spring boot security page!</h1>
+<!--tools-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-<p th:text="'Username: ' + ${user.getUsername()}">VALUE</p>
-<p th:text="'Password: ' + ${user.getPassword()}">VALUE</p>
-<p th:text="'FirstName: ' + ${user.getFirstName()}">VALUE</p>
-<p th:text="'LastName: ' + ${user.getLastName()}">VALUE</p>
-<p th:text="'Age: ' + ${user.getAge()}">VALUE</p>
-<p th:text="'Roles: ' + ${user.getRoles()}">VALUE</p>
-
-<br/>
-
-<form th:action="@{/logout}" th:method="POST">
-    <input type="submit" value="logout"/>
-</form>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
 </body>
 </html>

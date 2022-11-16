@@ -28,24 +28,28 @@ public class AdminController {
     public String showAdmin(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("admin", userService.showUser(user.getId()));
+        model.addAttribute("listOfUsers", userService.getAllUsers());
         return "/viewsForAdmin/admin";
     }
 
-    @GetMapping("/admin/users/{id}")
+ /*   @GetMapping("/admin/users/{id}")
     public String showUserForAdmin(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("user", userService.showUser(id));
         return "/viewsForAdmin/showUser";
-    }
+    }*/
 
 
-    @GetMapping("/admin/users")
-    public String getAllUsers(Model model) {
-        model.addAttribute("listOfUsers", userService.getAllUsers());
-        return "/viewsForAdmin/allUsers";
+    @GetMapping("/admin/personalPage")
+    public String getAllUsers(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("admin", userService.showUser(user.getId()));
+        return "/viewsForAdmin/adminPersonalPage";
     }
 
     @GetMapping("/admin/users/new")
-    public String getViewForNewUser(Model model) {
+    public String getViewForNewUser(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("admin", userService.showUser(user.getId()));
         model.addAttribute("user", new User());
         return "/viewsForAdmin/new";
     }
