@@ -52,8 +52,8 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public User(String username, String password, String firstName, String lastName, int age, String email, Set<Role> role) {
-        this.username = username;
+    public User(/*String username,*/ String password, String firstName, String lastName, int age, String email, Set<Role> role) {
+//        this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -70,6 +70,18 @@ public class User implements UserDetails {
         this.age = age;
         this.email = email;
         this.roles = roles;
+    }
+
+    public String convertSetOfRoleToString(Set<Role> roles) {
+        StringBuilder sb = new StringBuilder();
+        for(Role role: roles) {
+            if (role.getRole().contains("ROLE_ADMIN")) {
+                sb.append("ADMIN");
+            } else if (role.getRole().contains("ROLE_USER")) {
+                sb.append("USER");
+            }
+        }
+        return sb.toString();
     }
 
     public Integer getId() {
@@ -119,7 +131,6 @@ public class User implements UserDetails {
     public void setAge(int age) {
         this.age = age;
     }
-
     public String getEmail() {
         return email;
     }

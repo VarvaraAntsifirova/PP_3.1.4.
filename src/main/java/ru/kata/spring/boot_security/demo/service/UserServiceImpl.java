@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void createUser(User user) {
+       // user.setRoles(new String[]{user.convertSetOfRoleToString(user.getRoles())});
         userRepository.save(user);
     }
 

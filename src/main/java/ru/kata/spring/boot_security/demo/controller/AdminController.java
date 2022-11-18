@@ -5,10 +5,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -25,51 +27,55 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String showAdmin(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("admin", userService.showUser(user.getId()));
+    public String showAdminGeneralPage(Principal principal, Model model) {
+        User userP = userService.findByUsername(principal.getName());
+        model.addAttribute("admin", userService.showUser(userP.getId()));
         model.addAttribute("listOfUsers", userService.getAllUsers());
-        return "/viewsForAdmin/admin";
+        model.addAttribute("role", userP.convertSetOfRoleToString(userService.showUser(userP.getId()).getRoles()));
+        return "/viewsForAdmin/adminGeneralPage";
     }
 
- /*   @GetMapping("/admin/users/{id}")
-    public String showUserForAdmin(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("user", userService.showUser(id));
-        return "/viewsForAdmin/showUser";
+   /* @GetMapping("/admin/personalPage")
+    public String showUserForAdmin( Model model) {
+        model.addAttribute("listOfUsers", userService.getAllUsers());
+        return "/viewsForAdmin/adminPersonalPage";
     }*/
 
 
     @GetMapping("/admin/personalPage")
-    public String getAllUsers(Principal principal, Model model) {
+    public String showAdminPersonalPage(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("admin", userService.showUser(user.getId()));
+        model.addAttribute("role", user.convertSetOfRoleToString(userService.showUser(user.getId()).getRoles()));
         return "/viewsForAdmin/adminPersonalPage";
     }
 
-    @GetMapping("/admin/users/new")
+    @GetMapping("/admin/new")
     public String getViewForNewUser(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("admin", userService.showUser(user.getId()));
         model.addAttribute("user", new User());
+        model.addAttribute("role", user.convertSetOfRoleToString(userService.showUser(user.getId()).getRoles()));
         return "/viewsForAdmin/new";
     }
 
-    @PostMapping("/admin/users/newUser")
+    @PostMapping("/admin/newUser")
     public String addUser(@ModelAttribute("user") User user) {
+        user.setRole((Set<Role>) userService.mapRolesToAuthorities(user.getRoles()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createUser(user);
-        return "redirect:/admin/users";
+        return "redirect:/admin";
     }
 
 
-    @GetMapping("/admin/users/{id}/edit")
-    public String getViewForUpdateUser(Model model, @PathVariable("id") Integer id) {
-        model.addAttribute("user", userService.showUser(id));
-        return "/viewsForAdmin/edit";
+    @GetMapping("/users/login")
+    public String getViewForUpdateUser() {
+        return "/viewsForAdmin/login";
     }
 
     @PatchMapping("/admin/users/{id}/editUser")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Integer id) {
+       // user.setRole((Set<Role>) userService.mapRolesToAuthorities(user.getRoles()));
         userService.updateUser(id, user);
         return "redirect:/admin/users";
     }
