@@ -10,15 +10,12 @@
 <body style="background-color: #f3f3f3">
 <nav class="navbar navbar-default" style="background-color: #313131">
     <div class="container-fluid">
-        <!--    <div >-->
         <div class="navbar-header text-white">
             <ul class="list-inline">
-                <li class="list-inline-item"><h4 th:text="${admin.getEmail()}"></h4></li>
-                <li class="list-inline-item"><h4 class="lead" th:text="' with roles: ' + ${role}"></h4></li>
+                <li class="list-inline-item"><h4 th:text="${admin.getUsername()}"></h4></li>
+                <li class="list-inline-item"><h4 class="lead" th:text="' with roles: ' + ${personalRole}"></h4></li>
             </ul>
         </div>
-        <!--</div>-->
-        <!---->
         <div>
             <form th:action="@{/logout}" th:method="POST">
                 <div class="text-right">
@@ -28,9 +25,8 @@
         </div>
     </div>
 </nav>
-<!---->
 
-<!---->
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2" style="background-color: #ffffff">
@@ -102,7 +98,7 @@
                                         </br>
                                         <div class="form-group">
                                             <label for="email"><strong> Email </strong></label>
-                                            <input type="email" name="email" class="form-control" id="email"
+                                            <input type="email" name="username" class="form-control" id="email"
                                                    placeholder="Email">
                                         </div>
 
@@ -117,13 +113,15 @@
                                         </br>
 
                                         <div class="form-group">
-                                            <label><strong> Role </strong></label>
-                                            <select class="form-select" size="2">
-                                                <option>ADMIN</option>
-                                                <option>USER</option>
+                                            <label for="roles"><strong> Role </strong></label>
+                                            <select multiple class="form-control form-control-sm" id="roles"
+                                                    name="roles" size="2" required>
+                                                <option th:each="role: ${roles}" th:value="${role.getRoleName()}">
+                                                    <th:block th:text="${user.convertSetOfRoleToString(role)}">
+                                                    </th:block>
+                                                </option>
                                             </select>
                                         </div>
-
                                         </br>
 
                                         <button class="btn btn-success">Add new user</button>
@@ -139,49 +137,6 @@
     </div>
 </div>
 <br/>
-
-
-<!--th:href="/admin/newUser" th:method="post"<form th:method="POST" th:action="@{/admin/users/newUser}" th:object="${user}">&lt;!&ndash;th:action="@{/admin/users}"/a}"&ndash;&gt;
-
-    <label for="username">Username</label>
-    <input name="username" type="text" id="username"/>
-
-    <br/>
-
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password"/>
-
-    <br/>
-
-    <label for="firstName">Name</label>
-    <input name="firstName" type="text" id="firstName"/>
-
-    <br/>
-
-    <label for="lastName">Last Name</label>
-    <input name="lastName" type="text" id="lastName"/>
-
-    <br/>
-
-    <label for="age">Age</label>
-    <input name="age" type="text" id="age"/>
-
-    <br/>
-
-    <input type=checkbox id=adminId name=roles[] value="ROLE_ADMIN">
-    <label for="adminId">Admin</label>
-
-    <br/>
-
-    <input type=checkbox id=userId name=roles[] value="ROLE_USER">
-    <label for="userId">User</label>
-
-    <br/>
-
-    <input type="submit" value="Create!"/>
-
-</form>-->
-
 
 <!--jQuery-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

@@ -16,7 +16,7 @@
 
         <div class="navbar-header text-white">
             <ul class="list-inline">
-                <li class="list-inline-item"><h4 th:text="${admin.getEmail()}"></h4></li>
+                <li class="list-inline-item"><h4 th:text="${admin.getUsername()}"></h4></li>
                 <li class="list-inline-item"><h4 class="lead" th:text="' with roles: ' + ${role}"></h4></li>
             </ul>
         </div>
@@ -30,9 +30,8 @@
         </div>
     </div>
 </nav>
-<!---->
 
-<!---->
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2" style="background-color: #ffffff">
@@ -57,11 +56,11 @@
                 <div class="card">
                     <!--Information about user-->
 
-                        <table class="table table-striped">
-                            <div class="card-header">
-                                        <h4>About User</h4>
-                            </div>
-                            <div class="card-body">
+                    <table class="table table-striped">
+                        <div class="card-header">
+                            <h4>About User</h4>
+                        </div>
+                        <div class="card-body">
                             <thead>
                             <th>ID</th>
                             <th>First Name</th>
@@ -76,12 +75,12 @@
                                 <td th:text="${admin.getFirstName()}">user</td>
                                 <td th:text="${admin.getLastName()}">user</td>
                                 <td th:text="${admin.getAge()}">user</td>
-                                <td th:text="${admin.getEmail()}">user</td>
+                                <td th:text="${admin.getUsername()}">user</td>
                                 <td th:text="${role}">user</td>
                             </tr>
                             </tbody>
-                            </div>
-                        </table>
+                        </div>
+                    </table>
                 </div>
             </div>
         </div>

@@ -32,9 +32,6 @@ public class User implements UserDetails {
     @Column(name = "age")
     private int age;
 
-    @Column(name = "email")
-    private String email;
-
     @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -52,8 +49,8 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public User(/*String username,*/ String password, String firstName, String lastName, int age, String email, Set<Role> role) {
-//        this.username = username;
+    public User(String username, String password, String firstName, String lastName, int age, Set<Role> role) {
+        this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,23 +58,22 @@ public class User implements UserDetails {
         this.roles = role;
     }
 
-    public User(Integer id, String username, String password, String firstName, String lastName, int age, String email, Set<Role> roles) {
+    public User(Integer id, String username, String password, String firstName, String lastName, int age, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.email = email;
         this.roles = roles;
     }
 
     public String convertSetOfRoleToString(Set<Role> roles) {
         StringBuilder sb = new StringBuilder();
-        for(Role role: roles) {
-            if (role.getRole().contains("ROLE_ADMIN")) {
+        for (Role role : roles) {
+            if (role.getRoleName().contains("ROLE_ADMIN")) {
                 sb.append("ADMIN");
-            } else if (role.getRole().contains("ROLE_USER")) {
+            } else if (role.getRoleName().contains("ROLE_USER")) {
                 sb.append("USER");
             }
         }
@@ -131,13 +127,6 @@ public class User implements UserDetails {
     public void setAge(int age) {
         this.age = age;
     }
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -186,8 +175,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
-
 
     @Override
     public boolean equals(Object o) {

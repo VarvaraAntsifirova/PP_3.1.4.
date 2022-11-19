@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>User Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +13,7 @@
 
         <div class="navbar-header text-white">
             <ul class="list-inline">
-                <li class="list-inline-item"><h4 th:text="${user.getEmail()}"></h4></li>
+                <li class="list-inline-item"><h4 th:text="${user.getUsername()}"></h4></li>
                 <li class="list-inline-item"><h4 class="lead" th:text="' with roles: ' + ${role}"></h4></li>
             </ul>
         </div>
@@ -28,9 +27,8 @@
         </div>
     </div>
 </nav>
-<!---->
 
-<!---->
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2" style="background-color: #ffffff">
@@ -54,7 +52,7 @@
 
                     <table class="table table-striped">
                         <div class="card-header">
-                                    <h4>About User</h4>
+                            <h4>About User</h4>
 
                         </div>
                         <div class="card-body">
@@ -72,7 +70,7 @@
                                 <td th:text="${user.getFirstName()}">user</td>
                                 <td th:text="${user.getLastName()}">user</td>
                                 <td th:text="${user.getAge()}">user</td>
-                                <td th:text="${user.getEmail()}">user</td>
+                                <td th:text="${user.getUsername()}">user</td>
                                 <td th:text="${role}">user</td>
                             </tr>
                             </tbody>
