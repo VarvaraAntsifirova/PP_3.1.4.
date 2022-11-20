@@ -1,4 +1,3 @@
-/*
 package ru.kata.spring.boot_security.demo.init;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +37,3 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         userRepository.save(user);
     }
 }
-*/
