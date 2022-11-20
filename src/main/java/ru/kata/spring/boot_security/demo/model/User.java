@@ -72,9 +72,9 @@ public class User implements UserDetails {
         StringBuilder sb = new StringBuilder();
         for (Role role : roles) {
             if (role.getRoleName().contains("ROLE_ADMIN")) {
-                sb.append("ADMIN");
+                sb.append("ADMIN ");
             } else if (role.getRoleName().contains("ROLE_USER")) {
-                sb.append("USER");
+                sb.append("USER ");
             }
         }
         return sb.toString();

@@ -29,20 +29,17 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2" style="background-color: #ffffff">
             <!--Боковая панель-->
-            <div class="container-fluid">
-                <ul class="nav flex-column">
-                    <li>
-                        <a class="nav-link active bg-primary text-white" aria-current="fluid" href="/admin">Admin</a>
-                        <!---->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/personalPage">User</a>
-                    </li>
-                </ul>
+            <div class="col-2" style="background-color: #ffffff">
+                <div class="row justify-content">
+                    <div class="btn-group-vertical justify-content">
+                        <a href="/admin" class="btn btn-primary btn-md"  role="button"
+                        >Admin</a>
+                        <a  class="btn btn-link btn-md" href="/admin/personalPage"
+                            role="button" >User</a>
+                    </div>
+                </div>
             </div>
-        </div>
 
         <div class="col-md-10">
 

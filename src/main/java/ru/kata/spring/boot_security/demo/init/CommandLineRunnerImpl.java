@@ -1,3 +1,4 @@
+/*
 package ru.kata.spring.boot_security.demo.init;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         admin.setFirstName("Admin");
         admin.setLastName("Admin");
         admin.setAge(18);
-        admin.setRoles(new String[]{"ROLE_ADMIN"});
+        admin.setRoles(new String[]{"ROLE_ADMIN", "ROLE_USER"});
         userRepository.save(admin);
 
         User user = new User();
@@ -37,3 +38,4 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
         userRepository.save(user);
     }
 }
+*/
