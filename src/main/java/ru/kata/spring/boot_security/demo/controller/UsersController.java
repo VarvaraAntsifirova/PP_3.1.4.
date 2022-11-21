@@ -17,8 +17,8 @@ public class UsersController {
     public final UserService userService;
 
     @Autowired
-    public UsersController(UserService service) {
-        this.userService = service;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
     
     @GetMapping("/user")
